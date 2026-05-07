@@ -64,13 +64,14 @@ export function Navbar() {
 
         {/* Action Button */}
         <div className="hidden md:flex items-center gap-6">
-           <motion.button
+           <motion.a
+            href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-6 py-2 border border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-luxury-dark transition-all duration-500 uppercase tracking-widest text-xs font-bold"
           >
             Book Now
-          </motion.button>
+          </motion.a>
         </div>
 
         {/* Mobile Toggle */}
@@ -101,6 +102,13 @@ export function Navbar() {
                 {link.name}
               </a>
             ))}
+            <a 
+              href="#contact"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full py-4 text-center border border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-luxury-dark transition-all duration-500 uppercase tracking-widest text-sm font-bold"
+            >
+              Book Now
+            </a>
             <div className="flex gap-6 mt-4">
               <Instagram className="hover:text-luxury-gold cursor-pointer" size={20} />
               <Youtube className="hover:text-luxury-gold cursor-pointer" size={20} />

@@ -60,11 +60,14 @@ export function Hero() {
           transition={{ duration: 1, delay: 1.4 }}
           className="flex justify-center items-center"
         >
-          <button className="group relative px-8 py-4 bg-luxury-gold text-luxury-dark font-bold uppercase tracking-widest text-sm transition-all duration-300 hover:bg-white overflow-hidden">
+          <a 
+            href="#contact"
+            className="group relative px-10 py-5 bg-luxury-gold text-luxury-dark font-bold uppercase tracking-widest text-sm transition-all duration-300 hover:bg-white overflow-hidden shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+          >
             <span className="relative z-10 flex items-center gap-2">
-              View Portfolio <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              Request Consultation <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
             </span>
-          </button>
+          </a>
         </motion.div>
       </div>
 

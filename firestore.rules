@@ -1,0 +1,37 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Phase 3: Primitives
+    function isSignedIn() { return request.auth != null; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    
+    // Pillar 2: Validation Blueprint
+    function isValidConsultation(data) {
+      return data.keys().hasAll(['name', 'phone', 'projectType', 'budget', 'createdAt', 'status', 'message'])
+        && data.keys().size() == 7
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 100
+        && data.phone is string && data.phone.size() >= 5 && data.phone.size() <= 20
+        && data.projectType in ['Residential', 'Commercial', 'Hospitality', 'Modular Solutions']
+        && data.budget in ['$50k - $100k', '$100k - $500k', '$500k+']
+        && data.message is string && data.message.size() <= 2000
+        && data.status == 'pending'
+        && data.createdAt == request.time;
+    }
+
+    // Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    match /consultations/{consultationId} {
+      // Pillar 3: Path Variable Hardening
+      allow create: if isValidId(consultationId) && isValidConsultation(incoming());
+      
+      // Only admins or the app owner (if we add auth later) should read. 
+      // For now, deny read to public.
+      allow read: if false; 
+    }
+  }
+}

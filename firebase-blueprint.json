@@ -1,0 +1,25 @@
+{
+  "entities": {
+    "Consultation": {
+      "title": "Consultation",
+      "description": "A lead generated from the consultation form.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "The name of the lead." },
+        "phone": { "type": "string", "description": "Contact phone number." },
+        "projectType": { "type": "string", "description": "Type of project (Residential, Commercial, etc.)" },
+        "budget": { "type": "string", "description": "Budget range." },
+        "message": { "type": "string", "description": "Additional project details." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the lead was created." },
+        "status": { "type": "string", "enum": ["pending", "contacted", "closed"], "description": "Current status of the lead." }
+      },
+      "required": ["name", "phone", "projectType", "budget", "createdAt"]
+    }
+  },
+  "firestore": {
+    "consultations/{consultationId}": {
+      "schema": "Consultation",
+      "description": "Store all consultation leads."
+    }
+  }
+}
